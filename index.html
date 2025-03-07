@@ -12,21 +12,25 @@
             flex-direction: column;
             align-items: center;
             margin: 0;
+            overflow-x: hidden;
         }
 
         .container {
             position: relative;
             width: 80%;
             max-width: 800px;
-            overflow: hidden;
+            height: 300vh; /* Ensures enough space for scroll effect */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .card {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            min-height: 80vh;
-            margin-bottom: -20vh;
+            position: absolute;
+            width: 80%;
+            max-width: 700px;
+            min-height: 60vh;
             background: white;
             box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
@@ -36,24 +40,28 @@
             align-items: center;
             font-size: 24px;
             text-align: center;
-            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
-        .card:nth-child(1) { background-color: #FF6B6B; }
-        .card:nth-child(2) { background-color: #FFD166; }
-        .card:nth-child(3) { background-color: #06D6A0; }
-        .card:nth-child(4) { background-color: #118AB2; }
-        .card:nth-child(5) { background-color: #073B4C; color: white; }
+        .card:nth-child(1) { background-color: #FF6B6B; z-index: 5; }
+        .card:nth-child(2) { background-color: #FFD166; z-index: 4; }
+        .card:nth-child(3) { background-color: #06D6A0; z-index: 3; }
+        .card:nth-child(4) { background-color: #118AB2; z-index: 2; }
+        .card:nth-child(5) { background-color: #073B4C; color: white; z-index: 1; }
 
-        /* Animation for stacking effect */
-        .card.hidden {
-            transform: translateY(100px) scale(0.95);
-            opacity: 0.3;
+        /* Key animation logic */
+        .card {
+            top: 50vh;  /* Start all cards from the same height */
+            opacity: 1;
         }
 
         .card.visible {
-            transform: translateY(0) scale(1);
-            opacity: 1;
+            transform: translateY(-40px) scale(0.95); /* Moves the card slightly up */
+        }
+
+        .card.hidden {
+            transform: translateY(-80px) scale(0.9);
+            opacity: 0.8;
         }
 
     </style>
@@ -74,21 +82,15 @@
     <script>
         const cards = document.querySelectorAll(".card");
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    entry.target.classList.remove("hidden");
-                } else {
-                    entry.target.classList.add("hidden");
-                    entry.target.classList.remove("visible");
-                }
-            });
-        }, { threshold: 0.3 });
+        window.addEventListener("scroll", () => {
+            let scrollPosition = window.scrollY;
 
-        cards.forEach((card) => {
-            observer.observe(card);
-            card.classList.add("hidden");
+            cards.forEach((card, index) => {
+                let cardOffset = index * 100; // Distance between stacking effect
+                let moveUp = Math.max(0, scrollPosition - cardOffset);
+                card.style.transform = `translateY(-${moveUp}px) scale(${1 - moveUp / 1000})`;
+                card.style.opacity = `${1 - moveUp / 1000}`;
+            });
         });
     </script>
 

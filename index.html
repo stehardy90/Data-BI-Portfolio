@@ -3,96 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stacking Scroll Effect</title>
+    <title>Clean Website Layout</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #d4edda; /* Pale green */
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            overflow-x: hidden;
+        }
+
+        .title-section {
+            width: 100%;
+            background-color: white;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* More visible shadow */
         }
 
         .container {
-            position: relative;
-            width: 80%;
-            max-width: 800px;
-            height: 300vh; /* Ensures enough space for scroll effect */
+            width: 95%; /* Increased width for better screen usage */
+            max-width: 1600px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 30px; /* Matching horizontal and vertical gaps */
+            padding: 20px 0;
         }
 
-        .card {
-            position: absolute;
-            width: 80%;
-            max-width: 700px;
-            min-height: 60vh;
-            background: white;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
+        .box {
+            background-color: white;
+            border-radius: 8px; /* Slightly increased roundness */
+            padding: 20px;
             text-align: center;
-            transition: transform 0.5s ease, opacity 0.5s ease;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* More visible shadow */
         }
 
-        .card:nth-child(1) { background-color: #FF6B6B; z-index: 5; }
-        .card:nth-child(2) { background-color: #FFD166; z-index: 4; }
-        .card:nth-child(3) { background-color: #06D6A0; z-index: 3; }
-        .card:nth-child(4) { background-color: #118AB2; z-index: 2; }
-        .card:nth-child(5) { background-color: #073B4C; color: white; z-index: 1; }
-
-        /* Key animation logic */
-        .card {
-            top: 50vh;  /* Start all cards from the same height */
-            opacity: 1;
+        .paragraph {
+            width: 100%; /* Ensuring all sections have the same width */
         }
 
-        .card.visible {
-            transform: translateY(-40px) scale(0.95); /* Moves the card slightly up */
+        .row {
+            display: flex;
+            gap: 30px; /* Matching horizontal and vertical gaps */
+            width: 100%; /* Ensuring consistent width across sections */
+            justify-content: center;
         }
 
-        .card.hidden {
-            transform: translateY(-80px) scale(0.9);
-            opacity: 0.8;
+        .row .box {
+            flex: 1;
         }
 
+        .row-2 .box {
+            width: 48%; /* Increased width for better screen usage */
+        }
+
+        .row-3 .box {
+            width: 38%; /* Increased width for better screen usage */
+        }
     </style>
 </head>
 <body>
-
-    <h1>Stacking Scroll Effect</h1>
-    <p>Scroll down to see the stacking effect in action.</p>
-
+    <div class="title-section">Title (Full-width Section)</div>
+    
     <div class="container">
-        <div class="card">Card 1 - Welcome</div>
-        <div class="card">Card 2 - About</div>
-        <div class="card">Card 3 - Services</div>
-        <div class="card">Card 4 - Portfolio</div>
-        <div class="card">Card 5 - Contact</div>
+        <div class="box paragraph">Placeholder paragraph (100% width)</div>
+        
+        <div class="row row-2">
+            <div class="box">Rectangle (48%)</div>
+            <div class="box">Rectangle (48%)</div>
+        </div>
+
+        <div class="row row-3">
+            <div class="box">Rectangle (38%)</div>
+            <div class="box">Rectangle (38%)</div>
+            <div class="box">Rectangle (38%)</div>
+        </div>
+
+        <div class="row row-2">
+            <div class="box">Rectangle (48%)</div>
+            <div class="box">Rectangle (48%)</div>
+        </div>
     </div>
-
-    <script>
-        const cards = document.querySelectorAll(".card");
-
-        window.addEventListener("scroll", () => {
-            let scrollPosition = window.scrollY;
-
-            cards.forEach((card, index) => {
-                let cardOffset = index * 100; // Distance between stacking effect
-                let moveUp = Math.max(0, scrollPosition - cardOffset);
-                card.style.transform = `translateY(-${moveUp}px) scale(${1 - moveUp / 1000})`;
-                card.style.opacity = `${1 - moveUp / 1000}`;
-            });
-        });
-    </script>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Carousel</title>
+    <title>Advanced Image Carousel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,11 +27,9 @@
             position: relative;
             width: 70%;
             max-width: 700px;
+            height: 350px; /* Fixed height */
             margin: 20px auto;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            background-color: white;
         }
 
         .carousel {
@@ -40,10 +38,16 @@
         }
 
         .carousel img {
-            width: 100%;
+            width: 60%;
             height: auto;
-            flex-shrink: 0; /* Ensures images don't resize improperly */
-            border-radius: 10px;
+            flex-shrink: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0.5;
+        }
+
+        .carousel img.active {
+            transform: scale(1.1); /* Make the active image larger */
+            opacity: 1;
         }
 
         .prev, .next {
@@ -57,6 +61,7 @@
             cursor: pointer;
             border-radius: 50%;
             font-size: 18px;
+            z-index: 10;
         }
 
         .prev:hover, .next:hover {
@@ -65,41 +70,72 @@
 
         .prev { left: 10px; }
         .next { right: 10px; }
+
     </style>
 </head>
 <body>
 
-    <h1>Welcome to My Image Carousel</h1>
-    <p>This is a simple image carousel that allows you to navigate through images by clicking the left or right buttons.</p>
+    <h1>Enhanced Image Carousel</h1>
+    <p>Now with infinite scrolling and a focus effect on the selected image.</p>
 
     <div class="carousel-container">
         <div class="carousel">
-            <img src="image1.jpg" alt="Image 1">
+            <!-- These clones create the infinite loop effect -->
+            <img src="image3.jpg" alt="Image 3">
+            <img src="image1.jpg" alt="Image 1" class="active">
             <img src="image2.jpg" alt="Image 2">
             <img src="image3.jpg" alt="Image 3">
+            <img src="image1.jpg" alt="Image 1"> <!-- Clone of first image -->
         </div>
         <button class="prev" onclick="prevSlide()">❮</button>
         <button class="next" onclick="nextSlide()">❯</button>
     </div>
 
     <script>
-        let index = 0;
+        let index = 1; // Start at the real first image
         const slides = document.querySelector('.carousel');
-        const totalSlides = document.querySelectorAll('.carousel img').length;
+        const images = document.querySelectorAll('.carousel img');
+        const totalSlides = images.length;
+        const imageWidth = images[0].clientWidth;
 
-        function showSlide() {
-            slides.style.transform = `translateX(${-index * 100}%)`;
+        function updateActiveClass() {
+            images.forEach(img => img.classList.remove("active"));
+            images[index].classList.add("active");
+        }
+
+        function showSlide(instant = false) {
+            slides.style.transition = instant ? "none" : "transform 0.5s ease-in-out";
+            slides.style.transform = `translateX(${-index * imageWidth}px)`;
+            updateActiveClass();
         }
 
         function nextSlide() {
-            index = (index + 1) % totalSlides;
-            showSlide();
+            if (index >= totalSlides - 1) {
+                index = 1; // Reset back to first real image
+                showSlide(true); // Jump instantly
+            }
+            setTimeout(() => {
+                index++;
+                showSlide();
+            }, 10);
         }
 
         function prevSlide() {
-            index = (index - 1 + totalSlides) % totalSlides;
-            showSlide();
+            if (index <= 0) {
+                index = totalSlides - 2; // Reset to last real image
+                showSlide(true); // Jump instantly
+            }
+            setTimeout(() => {
+                index--;
+                showSlide();
+            }, 10);
         }
+
+        // Ensure smooth looping effect
+        setTimeout(() => {
+            showSlide(true);
+        }, 100);
+
     </script>
 
 </body>

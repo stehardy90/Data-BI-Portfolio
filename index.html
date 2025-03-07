@@ -3,63 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrolling Box Effect</title>
+    <title>Stacking Scroll Effect</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
         }
         .section {
+            position: relative;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.5s ease-in-out;
+            font-size: 2rem;
+            color: white;
+            transition: background-color 0.5s;
         }
-        .section:nth-child(even) {
-            background-color: #f0f0f0;
-        }
-        .hidden {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-        .visible {
-            transform: translateY(0);
-            opacity: 1;
+        .section:nth-child(1) { background-color: #1abc9c; }
+        .section:nth-child(2) { background-color: #3498db; }
+        .section:nth-child(3) { background-color: #9b59b6; }
+        .section-content {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="section hidden">
-        <h1>Section 1</h1>
+    <div class="section">
+        <div class="section-content">Section 1</div>
     </div>
-    <div class="section hidden">
-        <h1>Section 2</h1>
+    <div class="section">
+        <div class="section-content">Section 2</div>
     </div>
-    <div class="section hidden">
-        <h1>Section 3</h1>
+    <div class="section">
+        <div class="section-content">Section 3</div>
     </div>
-
-    <script>
-        const sections = document.querySelectorAll('.section');
-
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    entry.target.classList.remove('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    </script>
 
 </body>
 </html>

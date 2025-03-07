@@ -27,9 +27,18 @@
             position: relative;
             width: 80%;
             max-width: 900px;
-            height: 400px; /* Increased height for better visuals */
+            height: 400px;
             margin: 20px auto;
             overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
 
         .carousel {
@@ -40,9 +49,9 @@
         }
 
         .carousel img {
-            width: 30%; /* Default smaller preview */
-            height: 100%;
-            object-fit: cover; /* Ensures full image is visible */
+            width: 30%;
+            height: auto;
+            object-fit: cover;
             flex-shrink: 0;
             transition: transform 0.5s ease, opacity 0.5s ease;
             opacity: 0.5;
@@ -50,7 +59,7 @@
         }
 
         .carousel img.active {
-            width: 60%; /* Larger main image */
+            width: 50%;
             transform: scale(1);
             opacity: 1;
         }
@@ -84,47 +93,79 @@
     <p>Now with infinite scrolling and a focus effect on the selected image.</p>
 
     <div class="carousel-container">
-        <div class="carousel">
-            <!-- Cloned images for seamless infinite loop -->
-            <img src="image3.jpg" alt="Image 3">
-            <img src="image1.jpg" alt="Image 1" class="active">
-            <img src="image2.jpg" alt="Image 2">
-            <img src="image3.jpg" alt="Image 3">
-            <img src="image1.jpg" alt="Image 1"> <!-- Clone of first image -->
+        <div class="carousel-wrapper">
+            <button class="prev" onclick="prevSlide()">❮</button>
+            <div class="carousel">
+                <!-- These images will be inserted dynamically -->
+            </div>
+            <button class="next" onclick="nextSlide()">❯</button>
         </div>
-        <button class="prev" onclick="prevSlide()">❮</button>
-        <button class="next" onclick="nextSlide()">❯</button>
     </div>
 
     <script>
-        let index = 1; // Start at the first real image
-        const slides = document.querySelector('.carousel');
-        const images = document.querySelectorAll('.carousel img');
-        const totalSlides = images.length;
+        const imageSources = [
+            "image1.jpg",
+            "image2.jpg",
+            "image3.jpg"
+        ];
+
+        let index = 1;
+        const carousel = document.querySelector('.carousel');
+
+        function createImageElement(src, className = "") {
+            const img = document.createElement("img");
+            img.src = src;
+            if (className) img.classList.add(className);
+            return img;
+        }
+
+        function setupCarousel() {
+            carousel.innerHTML = "";
+
+            // Clone last image and insert it at the beginning
+            carousel.appendChild(createImageElement(imageSources[imageSources.length - 1]));
+
+            // Insert real images
+            imageSources.forEach((src, i) => {
+                const img = createImageElement(src, i === 0 ? "active" : "");
+                carousel.appendChild(img);
+            });
+
+            // Clone first image and insert it at the end
+            carousel.appendChild(createImageElement(imageSources[0]));
+
+            updateActiveClass();
+        }
 
         function updateActiveClass() {
+            const images = document.querySelectorAll('.carousel img');
             images.forEach(img => {
                 img.classList.remove("active");
-                img.style.width = "30%"; // Default to smaller preview size
+                img.style.width = "30%";
                 img.style.opacity = "0.5";
                 img.style.transform = "scale(0.8)";
             });
 
             images[index].classList.add("active");
-            images[index].style.width = "60%"; // Larger main image
+            images[index].style.width = "50%";
             images[index].style.opacity = "1";
             images[index].style.transform = "scale(1)";
         }
 
         function showSlide(instant = false) {
-            slides.style.transition = instant ? "none" : "transform 0.5s ease-in-out";
-            slides.style.transform = `translateX(calc(-${index * 33.33}%))`; // Center active image
+            const images = document.querySelectorAll('.carousel img');
+            const imageWidth = images[index].clientWidth;
+
+            carousel.style.transition = instant ? "none" : "transform 0.5s ease-in-out";
+            carousel.style.transform = `translateX(calc(-${index * imageWidth}px))`;
+
             updateActiveClass();
         }
 
         function nextSlide() {
-            if (index >= totalSlides - 1) {
-                index = 1; // Reset back to first real image
+            const images = document.querySelectorAll('.carousel img');
+            if (index >= images.length - 1) {
+                index = 1; // Jump instantly to first real image
                 showSlide(true);
             }
             setTimeout(() => {
@@ -134,8 +175,9 @@
         }
 
         function prevSlide() {
+            const images = document.querySelectorAll('.carousel img');
             if (index <= 0) {
-                index = totalSlides - 2; // Reset to last real image
+                index = images.length - 2; // Jump instantly to last real image
                 showSlide(true);
             }
             setTimeout(() => {
@@ -144,11 +186,12 @@
             }, 10);
         }
 
-        // Ensure smooth looping effect
-        setTimeout(() => {
-            showSlide(true);
-        }, 100);
-
+        window.onload = () => {
+            setupCarousel();
+            setTimeout(() => {
+                showSlide(true);
+            }, 100);
+        };
     </script>
 
 </body>

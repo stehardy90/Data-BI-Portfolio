@@ -1,19 +1,95 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
 
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="image1.jpg"></div>
-        <div class="swiper-slide"><img src="image2.jpg"></div>
-        <div class="swiper-slide"><img src="image3.jpg"></div>
+        h1 {
+            margin-top: 20px;
+        }
+
+        p {
+            max-width: 80%;
+            margin: 10px auto;
+            color: #555;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 70%;
+            max-width: 700px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to My Image Carousel</h1>
+    <p>This is a simple image carousel that allows you to navigate through images by clicking the left or right buttons.</p>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+        </div>
+        <button class="prev" onclick="prevSlide()">❮</button>
+        <button class="next" onclick="nextSlide()">❯</button>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
 
-<script>
-    var swiper = new Swiper('.swiper', {
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        loop: true
-    });
-</script>
+    <script>
+        let index = 0;
+        const slides = document.querySelector('.carousel');
+        const totalSlides = document.querySelectorAll('.carousel img').length;
+
+        function showSlide() {
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        function nextSlide() {
+            index = (index + 1) % totalSlides;
+            showSlide();
+        }
+
+        function prevSlide() {
+            index = (index - 1 + totalSlides) % totalSlides;
+            showSlide();
+        }

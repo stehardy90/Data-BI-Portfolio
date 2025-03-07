@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clean Website Layout</title>
+    <title>Interactive Portfolio</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,6 +13,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            cursor: none;
         }
 
         .title-section {
@@ -22,7 +23,7 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* More visible shadow */
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .container {
@@ -37,20 +38,33 @@
 
         .box {
             background-color: white;
-            border-radius: 8px; /* Slightly increased roundness */
+            border-radius: 8px;
             padding: 20px;
             text-align: center;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* More visible shadow */
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
         }
 
         .paragraph {
-            width: 100%; /* Ensuring all sections have the same width */
+            width: 100%;
         }
 
         .row {
             display: flex;
-            gap: 30px; /* Matching horizontal and vertical gaps */
-            width: 100%; /* Ensuring consistent width across sections */
+            gap: 30px;
+            width: 100%;
             justify-content: center;
         }
 
@@ -59,16 +73,43 @@
         }
 
         .row-2 .box {
-            width: 48%; /* Increased width for better screen usage */
+            width: 48%;
         }
 
         .row-3 .box {
-            width: 38%; /* Increased width for better screen usage */
+            width: 38%;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-gallery img {
+            width: 30%;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .cursor {
+            width: 15px;
+            height: 15px;
+            background-color: black;
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-    <div class="title-section">Title (Full-width Section)</div>
+    <div class="title-section typewriter"></div>
     
     <div class="container">
         <div class="box paragraph">Placeholder paragraph (100% width)</div>
@@ -89,5 +130,47 @@
             <div class="box">Rectangle (48%)</div>
         </div>
     </div>
+
+    <div class="image-gallery">
+        <img src="image1.jpg" alt="Project 1">
+        <img src="image2.jpg" alt="Project 2">
+        <img src="image3.jpg" alt="Project 3">
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll(".box");
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.2 });
+
+        boxes.forEach(box => observer.observe(box));
+
+        const cursor = document.createElement("div");
+        cursor.classList.add("cursor");
+        document.body.appendChild(cursor);
+
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
+
+        const text = "Welcome to My Portfolio";
+        let i = 0;
+        const typewriter = document.querySelector(".typewriter");
+
+        function typeEffect() {
+            if (i < text.length) {
+                typewriter.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeEffect, 100);
+            }
+        }
+
+        typeEffect();
+    </script>
 </body>
 </html>

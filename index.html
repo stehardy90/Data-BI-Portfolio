@@ -48,6 +48,7 @@ body {
     display: inline-block;
     white-space: nowrap;
     transition: transform 1.5s ease-out;
+    font-weight: normal;
 }
 
 .scroll-left .steven {
@@ -131,15 +132,21 @@ body {
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
 }
 
+.bold {
+    font-weight: bold;
+}
+
         
     </style>
 </head>
 <body>
 <div class="title-section">
     <span class="typewriter">
-        <span class="steven"></span><span class="hardy"></span>
+        <span class="steven"><span class="bold"></span></span>
+        <span class="hardy"></span>
     </span>
 </div>
+
     
     <div class="container">
         <div class="box paragraph">Placeholder paragraph (100% width)<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -188,9 +195,9 @@ body {
             cursor.style.top = `${e.clientY}px`;
         });
 
-const textSteven = "Steven ";
-const textHardy = "Hardy Data Solutions";
-const stevenSpan = document.querySelector(".steven");
+const textSteven = "Steven Hardy";
+const textHardy = " Data Solutions"; // Notice the space before "Data"
+const stevenSpan = document.querySelector(".bold"); // Now targets the bold span
 const hardySpan = document.querySelector(".hardy");
 const typewriterElement = document.querySelector(".typewriter");
 
@@ -198,10 +205,10 @@ let i = 0;
 
 function typeEffect() {
     if (i < textSteven.length) {
-        // Type "Steven " with a non-breaking space
-        stevenSpan.innerHTML += textSteven.charAt(i) === " " ? "&nbsp;" : textSteven.charAt(i);
+        // Type "Steven Hardy" inside the bold span
+        stevenSpan.textContent += textSteven.charAt(i);
     } else if (i < textSteven.length + textHardy.length) {
-        // Type "Hardy Data Solutions"
+        // Type "Data Solutions" in normal weight
         hardySpan.textContent += textHardy.charAt(i - textSteven.length);
     } else {
         // After typing, wait and then scroll left
@@ -216,6 +223,7 @@ function typeEffect() {
 
 // Start typing effect
 typeEffect();
+
 
 
 

@@ -189,7 +189,8 @@ body {
         });
 
 const textSteven = "Steven ";
-const textHardy = "Hardy Data Solutions";
+const textHardy = "Hardy ";
+const textDataSolutions = "Data Solutions"; // Normal weight text
 const stevenSpan = document.querySelector(".steven");
 const hardySpan = document.querySelector(".hardy");
 const typewriterElement = document.querySelector(".typewriter");
@@ -201,12 +202,11 @@ function typeEffect() {
         // Type "Steven " as bold
         stevenSpan.innerHTML += textSteven.charAt(i) === " " ? "&nbsp;" : `<b>${textSteven.charAt(i)}</b>`;
     } else if (i < textSteven.length + textHardy.length) {
-        // Type "Hardy" as bold and "Data Solutions" as normal
-        if (i - textSteven.length < 5) { // "Hardy" is 5 characters
-            hardySpan.innerHTML += `<b>${textHardy.charAt(i - textSteven.length)}</b>`;
-        } else {
-            hardySpan.textContent += textHardy.charAt(i - textSteven.length);
-        }
+        // Type "Hardy" as bold
+        hardySpan.innerHTML += `<b>${textHardy.charAt(i - textSteven.length)}</b>`;
+    } else if (i < textSteven.length + textHardy.length + textDataSolutions.length) {
+        // Type "Data Solutions" as normal
+        hardySpan.innerHTML += textDataSolutions.charAt(i - textSteven.length - textHardy.length);
     } else {
         // After typing, wait and then scroll left
         setTimeout(() => {
@@ -220,6 +220,7 @@ function typeEffect() {
 
 // Start typing effect
 typeEffect();
+
 
 
 

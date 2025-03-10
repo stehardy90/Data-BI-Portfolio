@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hardy Data Solutions</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #d4edda;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: background-color 0.5s ease;
-            cursor: default;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d4edda;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.5s ease;
+    cursor: default;
+}
 
 .title-section {
     width: 100%;
@@ -25,117 +25,114 @@
     font-size: 24px;
     font-weight: bold;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden; /* Hide the scrolling part */
+    display: flex;
+    justify-content: center;
     position: relative;
-    overflow: hidden; /* Ensures text that scrolls left is hidden */
 }
-
-        .container {
-            width: 95%;
-            max-width: 1600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            padding: 20px 0;
-        }
-
-        .box {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .box.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .box:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .row {
-            display: flex;
-            gap: 30px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .row .box {
-            flex: 1;
-        }
-
-        .row-2 .box {
-            width: 48%;
-        }
-
-        .row-3 .box {
-            width: 38%;
-        }
-
-        .image-gallery {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .image-gallery img {
-            width: 30%;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-            margin-top: 15px;
-            margin-bottom: 35px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .image-gallery img:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
-        }
 
 .typewriter {
-    display: inline-block;
+    display: flex;
     white-space: nowrap;
     position: relative;
-    transition: transform 1.5s ease-out; /* Smooth left movement */
 }
 
-.scroll-left {
-    transform: translateX(-80px); /* Moves "Steven " left out of view */
+/* Steven part */
+.steven {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: transform 1.5s ease-out, opacity 1.5s ease-out;
 }
 
-@keyframes swipeLeft {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+/* Hardy Data Solutions */
+.hardy {
+    display: inline-block;
+    visibility: hidden; /* Initially hidden */
+    transition: transform 1.5s ease-out;
 }
 
-.reposition {
-    position: absolute;
-    left: 0;
+/* Move "Steven" left and hide it */
+.scroll-left .steven {
+    transform: translateX(-120%);
     opacity: 0;
-    animation: fadeIn 0.8s forwards 0.8s;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateX(50%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* Make "Hardy Data Solutions" visible */
+.scroll-left .hardy {
+    visibility: visible;
+    transform: translateX(-60px); /* Adjusted to recenter text */
+}
+
+.container {
+    width: 95%;
+    max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.box.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.box:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+}
+
+.row .box {
+    flex: 1;
+}
+
+.row-2 .box {
+    width: 48%;
+}
+
+.row-3 .box {
+    width: 38%;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-gallery img {
+    width: 30%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.image-gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
 }
 
         
@@ -143,7 +140,9 @@
 </head>
 <body>
 <div class="title-section">
-    <span class="typewriter">Steven Hardy Data Solutions</span>
+    <span class="typewriter">
+        <span class="steven"></span><span class="hardy">Hardy Data Solutions</span>
+    </span>
 </div>
     
     <div class="container">
@@ -193,23 +192,32 @@
             cursor.style.top = `${e.clientY}px`;
         });
 
-const textFull = "Steven Hardy Data Solutions";
+const textFull = "Steven ";
+const textHardy = "Hardy Data Solutions";
+const stevenSpan = document.querySelector(".steven");
+const hardySpan = document.querySelector(".hardy");
 const typewriterElement = document.querySelector(".typewriter");
+
 let i = 0;
 
 function typeEffect() {
     if (i < textFull.length) {
-        typewriterElement.textContent += textFull.charAt(i);
-        i++;
-        setTimeout(typeEffect, 100);
+        stevenSpan.textContent += textFull.charAt(i);
+    } else if (i < textFull.length + textHardy.length) {
+        hardySpan.textContent += textHardy.charAt(i - textFull.length);
+        hardySpan.style.visibility = "visible"; // Show Hardy Data Solutions
     } else {
         setTimeout(() => {
-            typewriterElement.classList.add("scroll-left"); // Move text left
+            typewriterElement.classList.add("scroll-left"); // Move "Steven" out of view
         }, 1000); // Delay before swiping left
+        return;
     }
+    i++;
+    setTimeout(typeEffect, 100);
 }
 
 typeEffect();
+
 
 
         // Background Color Change on Scroll

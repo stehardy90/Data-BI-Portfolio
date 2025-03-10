@@ -20,14 +20,19 @@ body {
 .title-section {
     width: 100%;
     background-color: white;
-    padding: 40px 0;
+    height: 60px; /* Reduced height */
+    padding: 10px 0; /* Adjusted padding */
     text-align: center;
-    font-size: 24px;
+    font-size: 20px; /* Slightly smaller font */
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     display: flex;
     justify-content: center;
-    position: relative;
+    align-items: center;
+    position: fixed; /* Keeps it at the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures it stays above everything */
 }
 
 .typewriter {
@@ -67,6 +72,7 @@ body {
     align-items: center;
     gap: 30px;
     padding: 20px 0;
+    padding-top: 80px; /* Offsets for the sticky header */
 }
 
 .box {
@@ -131,7 +137,7 @@ body {
 }
 
 .logo {
-    height: 50px; /* Adjust size as needed */
+    height: 70px; /* Increased logo size */
     margin-left: 20px; /* Adds padding from the left side */
     position: absolute;
     left: 20px; /* Keeps it at the left side */

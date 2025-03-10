@@ -17,15 +17,17 @@
             cursor: default;
         }
 
-        .title-section {
-            width: 100%;
-            background-color: white;
-            padding: 40px 0;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        }
+.title-section {
+    width: 100%;
+    background-color: white;
+    padding: 40px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden; /* Ensures text that scrolls left is hidden */
+}
 
         .container {
             width: 95%;
@@ -98,15 +100,15 @@
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .typewriter {
+.typewriter {
     display: inline-block;
-    overflow: hidden;
     white-space: nowrap;
     position: relative;
+    transition: transform 1.5s ease-out; /* Smooth left movement */
 }
 
-.swipe-left {
-    animation: swipeLeft 0.8s forwards;
+.scroll-left {
+    transform: translateX(-80px); /* Moves "Steven " left out of view */
 }
 
 @keyframes swipeLeft {
@@ -140,9 +142,8 @@
     </style>
 </head>
 <body>
-    <div class="title-section">
-    <span class="typewriter original">Steven Hardy Data Solutions</span>
-    <span class="typewriter reposition">Hardy Data Solutions</span>
+<div class="title-section">
+    <span class="typewriter">Steven Hardy Data Solutions</span>
 </div>
     
     <div class="container">
@@ -193,20 +194,18 @@
         });
 
 const textFull = "Steven Hardy Data Solutions";
+const typewriterElement = document.querySelector(".typewriter");
 let i = 0;
-const originalText = document.querySelector(".original");
-const newText = document.querySelector(".reposition");
 
 function typeEffect() {
     if (i < textFull.length) {
-        originalText.textContent += textFull.charAt(i);
+        typewriterElement.textContent += textFull.charAt(i);
         i++;
         setTimeout(typeEffect, 100);
     } else {
         setTimeout(() => {
-            originalText.classList.add("swipe-left");
-            newText.classList.add("fadeIn");
-        }, 1000); // Delay before swiping
+            typewriterElement.classList.add("scroll-left"); // Move text left
+        }, 1000); // Delay before swiping left
     }
 }
 

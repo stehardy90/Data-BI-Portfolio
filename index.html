@@ -25,7 +25,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-    overflow: hidden; /* Hide the scrolling part */
+    overflow: hidden;
     display: flex;
     justify-content: center;
     position: relative;
@@ -37,31 +37,23 @@ body {
     position: relative;
 }
 
-/* Steven part */
-.steven {
+/* Initially hide Hardy Data Solutions */
+.steven, .hardy {
     display: inline-block;
-    overflow: hidden;
     white-space: nowrap;
-    transition: transform 1.5s ease-out, opacity 1.5s ease-out;
 }
 
-/* Hardy Data Solutions */
-.hardy {
-    display: inline-block;
-    visibility: hidden; /* Initially hidden */
-    transition: transform 1.5s ease-out;
-}
-
-/* Move "Steven" left and hide it */
+/* Animate Steven sliding left */
 .scroll-left .steven {
     transform: translateX(-120%);
     opacity: 0;
+    transition: transform 1.5s ease-out, opacity 1.5s ease-out;
 }
 
-/* Make "Hardy Data Solutions" visible */
+/* Make Hardy Data Solutions stay centered */
 .scroll-left .hardy {
-    visibility: visible;
-    transform: translateX(-60px); /* Adjusted to recenter text */
+    transform: translateX(-50px); /* Adjusted to recenter */
+    transition: transform 1.5s ease-out;
 }
 
 .container {
@@ -141,7 +133,7 @@ body {
 <body>
 <div class="title-section">
     <span class="typewriter">
-        <span class="steven"></span><span class="hardy">Hardy Data Solutions</span>
+        <span class="steven"></span><span class="hardy"></span>
     </span>
 </div>
     

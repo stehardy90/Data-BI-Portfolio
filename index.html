@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Portfolio</title>
+    <title>Hardy Data Solutions</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -151,19 +151,29 @@
             cursor.style.top = `${e.clientY}px`;
         });
 
-        const text = "Welcome to My Portfolio";
-        let i = 0;
-        const typewriter = document.querySelector(".typewriter");
+        const textFull = "Steven Hardy Data Solutions";
+const textFinal = "Hardy Data Solutions";
+let i = 0;
+const typewriter = document.querySelector(".typewriter");
 
-        function typeEffect() {
-            if (i < text.length) {
-                typewriter.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeEffect, 100);
-            }
-        }
+function typeEffect() {
+    if (i < textFull.length) {
+        typewriter.textContent += textFull.charAt(i);
+        i++;
+        setTimeout(typeEffect, 100);
+    } else {
+        setTimeout(eraseEffect, 1000); // Delay before erasing
+    }
+}
 
-        typeEffect();
+function eraseEffect() {
+    let currentText = typewriter.textContent;
+    if (currentText.startsWith("Steven ")) {
+        typewriter.textContent = currentText.substring(7); // Remove "Steven " (7 chars)
+    }
+}
+
+typeEffect();
 
         // Background Color Change on Scroll
         window.addEventListener("scroll", () => {

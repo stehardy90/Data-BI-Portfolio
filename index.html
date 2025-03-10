@@ -98,11 +98,52 @@
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
         }
 
+        .typewriter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.swipe-left {
+    animation: swipeLeft 0.8s forwards;
+}
+
+@keyframes swipeLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.reposition {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards 0.8s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
         
     </style>
 </head>
 <body>
-    <div class="title-section typewriter"></div>
+    <div class="title-section">
+    <span class="typewriter original">Steven Hardy Data Solutions</span>
+    <span class="typewriter reposition">Hardy Data Solutions</span>
+</div>
     
     <div class="container">
         <div class="box paragraph">Placeholder paragraph (100% width)<br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -151,29 +192,26 @@
             cursor.style.top = `${e.clientY}px`;
         });
 
-        const textFull = "Steven Hardy Data Solutions";
-const textFinal = "Hardy Data Solutions";
+const textFull = "Steven Hardy Data Solutions";
 let i = 0;
-const typewriter = document.querySelector(".typewriter");
+const originalText = document.querySelector(".original");
+const newText = document.querySelector(".reposition");
 
 function typeEffect() {
     if (i < textFull.length) {
-        typewriter.textContent += textFull.charAt(i);
+        originalText.textContent += textFull.charAt(i);
         i++;
         setTimeout(typeEffect, 100);
     } else {
-        setTimeout(eraseEffect, 1000); // Delay before erasing
-    }
-}
-
-function eraseEffect() {
-    let currentText = typewriter.textContent;
-    if (currentText.startsWith("Steven ")) {
-        typewriter.textContent = currentText.substring(7); // Remove "Steven " (7 chars)
+        setTimeout(() => {
+            originalText.classList.add("swipe-left");
+            newText.classList.add("fadeIn");
+        }, 1000); // Delay before swiping
     }
 }
 
 typeEffect();
+
 
         // Background Color Change on Scroll
         window.addEventListener("scroll", () => {

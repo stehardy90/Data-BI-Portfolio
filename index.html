@@ -198,8 +198,8 @@ let i = 0;
 
 function typeEffect() {
     if (i < textSteven.length) {
-        // Type "Steven "
-        stevenSpan.textContent += textSteven.charAt(i);
+        // Type "Steven " with a non-breaking space
+        stevenSpan.innerHTML += textSteven.charAt(i) === " " ? "&nbsp;" : textSteven.charAt(i);
     } else if (i < textSteven.length + textHardy.length) {
         // Type "Hardy Data Solutions"
         hardySpan.textContent += textHardy.charAt(i - textSteven.length);
@@ -216,6 +216,7 @@ function typeEffect() {
 
 // Start typing effect
 typeEffect();
+
 
 
 

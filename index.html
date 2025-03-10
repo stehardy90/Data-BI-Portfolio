@@ -41,20 +41,18 @@ body {
 .steven {
     display: inline-block;
     white-space: nowrap;
-    width: 6ch; /* Matches "Steven " width */
-    overflow: hidden;
     transition: transform 1.5s ease-out, opacity 1.5s ease-out;
 }
 
 .hardy {
     display: inline-block;
     white-space: nowrap;
+    transition: transform 1.5s ease-out;
 }
 
 .scroll-left .steven {
     transform: translateX(-120%);
     opacity: 0;
-    width: 0; /* Collapse width after animation */
 }
 
 .scroll-left {
@@ -200,8 +198,8 @@ let i = 0;
 
 function typeEffect() {
     if (i < textSteven.length) {
-        // Type "Steven " while preserving spacing naturally
-        stevenSpan.textContent += textSteven.charAt(i);
+        // Type "Steven " with a non-breaking space
+        stevenSpan.innerHTML += textSteven.charAt(i) === " " ? "&nbsp;" : textSteven.charAt(i);
     } else if (i < textSteven.length + textHardy.length) {
         // Type "Hardy Data Solutions"
         hardySpan.textContent += textHardy.charAt(i - textSteven.length);

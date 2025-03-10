@@ -35,32 +35,30 @@ body {
     display: flex;
     white-space: nowrap;
     position: relative;
+    transition: transform 1.5s ease-out;
 }
 
-/* Initially hide Hardy Data Solutions */
-.steven, .hardy {
+.steven {
     display: inline-block;
     white-space: nowrap;
-}
-
-/* Animate Steven sliding left */
-.scroll-left .steven {
-    transform: translateX(-120%);
-    opacity: 0;
     transition: transform 1.5s ease-out, opacity 1.5s ease-out;
 }
 
-.scroll-left {
-    display: flex;
-    justify-content: center; /* Ensures it remains centered */
-    width: 100%;
-}
-
-/* Make Hardy Data Solutions stay centered */
-.scroll-left .hardy {
-    transform: translateX(0); /* Ensures it remains centered */
+.hardy {
+    display: inline-block;
+    white-space: nowrap;
     transition: transform 1.5s ease-out;
 }
+
+.scroll-left .steven {
+    transform: translateX(-120%);
+    opacity: 0;
+}
+
+.scroll-left {
+    transform: translateX(-40px); /* Adjust to fine-tune centering */
+}
+
 
 .container {
     width: 95%;
@@ -190,7 +188,7 @@ body {
             cursor.style.top = `${e.clientY}px`;
         });
 
-const textFull = "Steven ";
+const textSteven = "Steven ";
 const textHardy = "Hardy Data Solutions";
 const stevenSpan = document.querySelector(".steven");
 const hardySpan = document.querySelector(".hardy");
@@ -199,21 +197,24 @@ const typewriterElement = document.querySelector(".typewriter");
 let i = 0;
 
 function typeEffect() {
-    if (i < textFull.length) {
-        stevenSpan.textContent += textFull.charAt(i);
-    } else if (i < textFull.length + textHardy.length) {
-        hardySpan.textContent += textHardy.charAt(i - textFull.length);
-        hardySpan.style.visibility = "visible"; // Show Hardy Data Solutions
+    if (i < textSteven.length) {
+        // Type "Steven "
+        stevenSpan.textContent += textSteven.charAt(i);
+    } else if (i < textSteven.length + textHardy.length) {
+        // Type "Hardy Data Solutions"
+        hardySpan.textContent += textHardy.charAt(i - textSteven.length);
     } else {
+        // After typing, wait and then scroll left
         setTimeout(() => {
-            typewriterElement.classList.add("scroll-left"); // Move "Steven" out of view
-        }, 1000); // Delay before swiping left
+            typewriterElement.classList.add("scroll-left");
+        }, 1000);
         return;
     }
     i++;
     setTimeout(typeEffect, 100);
 }
 
+// Start typing effect
 typeEffect();
 
 

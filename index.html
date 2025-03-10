@@ -225,12 +225,23 @@ typeEffect();
 
 
 
-        // Background Color Change on Scroll
-        window.addEventListener("scroll", () => {
-            let scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            let newColor = `rgb(${212 - scrollPercent * 50}, ${237 - scrollPercent * 50}, ${218 - scrollPercent * 50})`;
-            document.body.style.backgroundColor = newColor;
-        });
+// Background Color Change on Scroll (From #3E6584 to #6ABDE3)
+window.addEventListener("scroll", () => {
+    let scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+
+    // Define start and end RGB values
+    let startColor = { r: 62, g: 101, b: 132 }; // #3E6584
+    let endColor = { r: 106, g: 189, b: 227 }; // #6ABDE3
+
+    // Calculate new RGB values based on scroll percentage
+    let r = Math.round(startColor.r + (endColor.r - startColor.r) * scrollPercent);
+    let g = Math.round(startColor.g + (endColor.g - startColor.g) * scrollPercent);
+    let b = Math.round(startColor.b + (endColor.b - startColor.b) * scrollPercent);
+
+    let newColor = `rgb(${r}, ${g}, ${b})`;
+    document.body.style.backgroundColor = newColor;
+});
+
     </script>
 </body>
 </html>
